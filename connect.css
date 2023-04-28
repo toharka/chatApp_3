@@ -1,3 +1,21 @@
+.upload-container {
+  
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content:space-between;
+  text-align: justify;
+    
+}
+
+#exampleInputFile{
+  display: flex;
+  align-items: center;
+  text-align:justify;
+}
+
+
 .mb-3{
     background-image: url('im2.jpg');
     background-size: cover;
@@ -13,11 +31,11 @@
 
 form {
     
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
     text-align: center;
     
   }
