@@ -1,0 +1,56 @@
+.upload-container {
+  
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content:space-between;
+  text-align: justify;
+    
+}
+
+#exampleInputFile{
+  display: flex;
+  align-items: center;
+  text-align:justify;
+}
+
+
+.mb-3{
+    background-image: url('im2.jpg');
+    background-size: cover;
+    background-position: center;
+    border: 1px solid black;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.form-control{
+  border: 1px solid black !important;
+}
+
+form {
+    
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
+  }
+
+
+.btn{
+  color: black !important;
+  background-image: url('im2.jpg');
+  background-size: cover;
+  background-position: center;
+  border-color: black !important;
+}
+  
+body {
+  background-image: url('im2.jpg');
+  background-size: cover;
+  background-position: center;
+}
