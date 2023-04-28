@@ -1,0 +1,38 @@
+.mb-3{
+    background-image: url('im2.jpg');
+    background-size: cover;
+    background-position: center;
+    border: 1px solid black;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.form-control{
+  border: 1px solid black !important;
+}
+
+form {
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    
+  }
+
+
+.btn{
+  color: black !important;
+  background-image: url('im2.jpg');
+  background-size: cover;
+  background-position: center;
+  border-color: black !important;
+}
+  
+body {
+  background-image: url('im2.jpg');
+  background-size: cover;
+  background-position: center;
+}
