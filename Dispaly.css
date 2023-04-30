@@ -2,7 +2,7 @@ html,
 body,
 div,
 span {
-  height: 100%;
+  
   width: 100%;
   overflow: hidden;
   
@@ -11,7 +11,9 @@ span {
 
 
 body {
-  background: url("https://www.bootdey.com/img/bgy.png") no-repeat fixed center;
+  /* background: url("https://www.bootdey.com/img/bgy.png") no-repeat fixed center; */
+  /* background: url("https://www.bootdey.com/img/bgy.png") no-repeat fixed center; */
+  background: url("im2.jpg") no-repeat fixed center;
   background-size: cover;
 }
 
@@ -81,9 +83,10 @@ margin-bottom: 1%;
 }
 .bottomBar{
  
-  margin-top: 230px;
+  margin-top: 20%;
+  margin-bottom: 1%;
   background-color: transparent;
-height: 10%;
+/* height: 10%; */
 float: bottom;
 
 }
@@ -95,7 +98,7 @@ float: bottom;
 }
 
 .text-box{
-  width: 85%;
+  width: 91%;
   
 }
 #chatPic{
