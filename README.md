@@ -28,7 +28,7 @@ The CSS file contains the styles for the HTML elements. The file "Display.css" c
 
 
 
-## Register page
+# Register page
 
 This is a basic HTML file containing a user registration page with a simple form that asks for a username, password, password confirmation, display name, and allows the user to upload an image. 
 
@@ -42,7 +42,7 @@ To use this code, simply copy and paste it into a new HTML file and save it with
 
 
 
-## login page
+# login page
 
 This is a basic HTML file containing a login page with a simple form that asks for a username and password. 
 
