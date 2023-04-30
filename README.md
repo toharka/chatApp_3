@@ -4,7 +4,7 @@ our first task in our course advanced  programming 2
 
 # Chat Web:
 
-This project is a basic HTML/CSS/JavaScript chat web application that allows users to send and receive messages from other users. The application is designed using the Bootstrap framework, which provides a responsive layout that is compatible with multiple devices and screen sizes.
+This project is a basic HTML/CSS chat web application that allows users to send and receive messages from other users. The application is designed using the Bootstrap framework, which provides a responsive layout that is compatible with multiple devices and screen sizes.
 
 ## HTML
 
