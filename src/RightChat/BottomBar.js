@@ -23,7 +23,7 @@ function BottomBar({ onSendMessage, selectedContact }) {
   return (
     <div className="bottomBar">
       <div>
-        {selectedContact?.messengerName && (
+        {selectedContact?.username && (
           <>
             <input
               className="text-box"

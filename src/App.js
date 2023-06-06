@@ -18,7 +18,8 @@ function App() {
           <Routes>
             <Route path='/' element={<Conect/>}></Route>
             <Route path='/Register' element={<Register/>}></Route>
-            <Route path='/DisplayChat' element={currentUser ? <DisplayChat/> : <Navigate to="/" />}></Route>
+            <Route path='/DisplayChat' element={<DisplayChat/>}></Route>
+            {/* <Route path='/DisplayChat' element={currentUser ? <DisplayChat/> : <Navigate to="/" />}></Route> */}
           </Routes>
         </UserContext.Provider>
       </BrowserRouter>

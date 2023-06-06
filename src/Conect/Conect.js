@@ -6,6 +6,7 @@ import Username from './Username';
 import React, { useRef, useState, useContext } from 'react';  // Notice useContext is now imported here
 import users from "../Users/Users";
 import UserContext from '../Users/UserContext';
+import { Connection } from '../api';
 
 function Conect() {
     const password = useRef();
@@ -14,18 +15,21 @@ function Conect() {
     const navigate = useNavigate();
     const {setCurrentUser} = useContext(UserContext);
 
-    function check(event) {
+    async function check(event) {
         event.preventDefault()
-
-        if (users && users.length > 0) {
-            users.forEach((user) => {
-                if (user.username === username.current.value && user.password === password.current.value) {
-                    console.log(user);
-                    setCurrentUser(user);  // Set the user in the context
-                    navigate('../DisplayChat')
-                }
-            });
+        const token = await Connection(username.current.value,password.current.value);
+        console.log('דקה לפני הsetItem',token);
+        if (!(token === 0)){
+           localStorage.setItem('token',token);
+            navigate('../DisplayChat', { state: { username: username.current.value } });
         }
+        // if (users && users.length > 0) {
+        //     users.forEach((user) => {
+        //         if (user.username === username.current.value && user.password === password.current.value) {
+                    
+        //         }
+        //     });
+        // }
         setShowBubble("user info incorrect");
         event.preventDefault()
     };

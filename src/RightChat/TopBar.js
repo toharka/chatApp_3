@@ -1,11 +1,12 @@
 import React from 'react';
 
 function TopBar({ selectedContact }) {
-  const { photo, messengerName } = selectedContact;
+  
+  const { profilePic, displayName } = selectedContact;
   return (
     <div className="topBar">
-      <img className="circular-image" id="chatPic" src={photo}  />
-      <span className="messegerName rightTop">{messengerName}</span>
+      <img className="circular-image" id="chatPic" src={profilePic}  />
+      <span className="messegerName rightTop">{displayName}</span>
     </div>
   );
 }

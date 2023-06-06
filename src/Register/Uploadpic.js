@@ -5,9 +5,18 @@ function Uploadpic({ onImageUpload }) {
   
   function handle(event) {
     const file = event.target.files[0];
-    const imageUrl = file ? URL.createObjectURL(file) : '/unknown.png';
-    setPhoto(imageUrl);
-    onImageUpload(imageUrl); // Pass the image url back to the parent component
+    console.log("file:",file);
+    const reader = new FileReader();
+    reader.onload = (e)=> {
+      const imageBlob = e.target.result;
+      console.log("image?", e)
+      onImageUpload(imageBlob);
+      setPhoto(imageBlob);
+    }
+
+    reader.readAsDataURL(file); // blsob:34jfio34jfoj3oj
+    // const imageUrl = file ? URL.createObjectURL(file) : '/unknown.png';
+    // Pass the image url back to the parent component
   }
 
   return (

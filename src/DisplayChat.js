@@ -1,16 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import './DisplayChat.css';
 import LeftChat from './LeftChat/LeftChat';
 import RightChat from './RightChat/RightChat';
-import {useNavigate } from 'react-router-dom';
+import {useNavigate, useLocation } from 'react-router-dom';
+import { Connection, getUserInfo, sendMessageToChat } from './api';
+import UserContext from './Users/UserContext';
+
 
 function DisplayChat() {
   const navigate = useNavigate();
+  const location = useLocation();
+  //  const { currentUser } = useContext(UserContext);
+  
+  //const token = Connection(location.state.username,location.state.password);
+  // console.log('l', location);
+  // console.log('tc', currentUser);
+  
+  
   const logout = () => {
     navigate('../');
   };
   const [messenger, setMessenger] = useState([]);
-  const [selectedContact, setSelectedContact] = useState({ photo: '', name: '', messages: [] });
+  const [selectedContact, setSelectedContact] = useState({});
   const [searchTerm, setSearchTerm] = useState("");
 
   const onContactAdded = (contactData) => {
@@ -27,25 +38,6 @@ function DisplayChat() {
     setMessenger(newMessenger);
   };
 
-  const sendMessage = (text) => {
-    const currentTime = new Date().toLocaleTimeString();
-    const newMessage = { text, time: currentTime };
-
-    const updatedMessenger = messenger.map(contact =>
-      contact.messengerName === selectedContact.messengerName
-        ? { ...contact, messages: [...contact.messages, newMessage] }
-        : contact
-    );
-
-    // Find the updated selected contact
-    const updatedSelectedContact = updatedMessenger.find(
-      contact => contact.messengerName === selectedContact.messengerName
-    );
-
-    setMessenger(updatedMessenger);
-    setSelectedContact(updatedSelectedContact);  // Update the selected contact
-  };
-
   const handleSelect = (contact) => {
     setSelectedContact(contact);
   };
@@ -57,7 +49,7 @@ function DisplayChat() {
       </div>
       <div className="row">
       <LeftChat onContactAdded={onContactAdded} onSelect={handleSelect} messenger={messenger} searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-        <RightChat onSendMessage={sendMessage} selectedContact={selectedContact} />
+        <RightChat selectedContact={selectedContact} />
       </div>
     </div>
   );

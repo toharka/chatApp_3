@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
+import { postChat } from '../api';
 
-function ChatUpperBar({ onContactAdded, setSearchTerm, messenger }) {
+function ChatUpperBar({ addNewContact, onContactAdded, setSearchTerm, messenger }) {
 
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState('');
-  const [contactData, setContactData] = useState({
-    name: '',
-    description: '',
-    photo: null
-  });
+  const [contactUsername, setContactUsername] = useState('');
 
   const openModal = () => {
     setShowModal(true);
@@ -19,51 +16,32 @@ function ChatUpperBar({ onContactAdded, setSearchTerm, messenger }) {
   };
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setContactData((prevState) => ({
-      ...prevState,
-      [name]: value
-    }));
+    const { value } = e.target;
+    setContactUsername(value);
   };
 
-  const handlePhotoUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setContactData((prevState) => ({
-        ...prevState,
-        photo: file
-      }));
-    } else {
-      setContactData((prevState) => ({
-        ...prevState,
-        photo: null
-      }));
-    }
-  };
-
-  const addContact = () => {
-    if (!contactData.name.trim()) {
+  const addContact = async () => {
+    if (!contactUsername.trim()) {
       setError("Name is required");
       return;
     }
 
-    // check if the name already exists
-    const doesNameExist = messenger.some(contact => contact.messengerName.toLowerCase() === contactData.name.toLowerCase());
-    if (doesNameExist) {
-      setError("Name already exists");
-      return;
-    }
-
-
-
-    onContactAdded(contactData);
-    setContactData({
-      name: '',
-      description: '',
-      photo: null
-    });
-    setError(''); // Clear the error
-    closeModal();
+      // check if the name already exists
+      // const doesNameExist = messenger.some(contact => contact.messengerName.toLowerCase() === contactData.name.toLowerCase());
+      // if (doesNameExist) {
+      //   return;
+      // }
+      
+      const newContact = await postChat(contactUsername);
+      if (newContact) {
+        console.log("contact?", newContact)
+        addNewContact(newContact);
+        setContactUsername('');
+        setError(''); // Clear the error
+        closeModal();
+      } else {
+          setError("User could not be found");
+      }
   };
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -107,12 +85,12 @@ function ChatUpperBar({ onContactAdded, setSearchTerm, messenger }) {
                       className="form-control"
                       id="name"
                       name="name"
-                      value={contactData.name}
+                      value={contactUsername}
                       onChange={handleInputChange}
                     />
                     {error && <div style={{ color: 'red' }}>{error}</div>}
                   </div>
-                  <div className="form-group">
+                  {/* <div className="form-group">
                     <label htmlFor="description">Description:</label>
                     <textarea
                       className="form-control"
@@ -131,7 +109,7 @@ function ChatUpperBar({ onContactAdded, setSearchTerm, messenger }) {
                       name="photo"
                       onChange={handlePhotoUpload}
                     />
-                  </div>
+                  </div> */}
                 </form>
               </div>
               <div className="modal-footer">

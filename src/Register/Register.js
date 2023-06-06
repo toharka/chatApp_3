@@ -9,13 +9,15 @@ import Displayname from "./Displayname";
 import Linktocon from "./Linktocon";
 import Bottonreg from "./Bottonreg";
 import '../Conect/connect.css'
+import { Registration } from '../api';
+
 function Register() {
   const pass = useRef('');
   const passconf = useRef('');
   const username = useRef('');
   const nickname = useRef('');
   const [showBubble, setShowBubble] = useState('');
-  const [photoUrl, setPhotoUrl] = useState(null);
+  const [photoUrl, setPhotoUrl] = useState('public/unknown.png');
   const { setCurrentUser } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -25,7 +27,7 @@ function Register() {
     if ((username && username.current.value.length >= 4) &&
      (pass && passconf && passconf.current.value === pass.current.value)
       && (nickname && nickname.current.value.length >= 4) && (pass && pass.current.value.length >= 4)) {
-      if(users &&!users.length){
+      
         const user = {
           username: username.current.value,
           password: pass.current.value,
@@ -34,27 +36,20 @@ function Register() {
           contacts: [],
           messages: []
         }
-        users.push(user);
-        setCurrentUser(user);
-        navigate('/');
-      } else {
-        if(users.find((user =>user.username ===username.current.value))){
+        //users.push(user);
+        const error = Registration(user);
+        if(error === 1){
           setShowBubble("username is taken");
-        } else {
+        } 
+        else {
           setShowBubble("");
-          const user = {
-            username: username.current.value,
-            password: pass.current.value,
-            photo: photoUrl,
-            nickname: nickname.current.value,
-            contacts: [],
-            messages: []
-          }
-          users.push(user);
+          //users.push(user);
+
+          //לשלוח בקשה לשרת אם עבר בהצלחה
           setCurrentUser(user);
           navigate('/');
         }
-      }
+      
     }
   };
 
