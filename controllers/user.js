@@ -1,3 +1,4 @@
+//controller/user
 const jwt = require('jsonwebtoken'); 
 const userService = require('../services/user');
 
@@ -7,9 +8,20 @@ const createUser = async (req, res) => {
         res.status(200).send();
     } catch (error) {
         console.error(error);
+        if (error.message === 'Username already exists') {
+            // Return a 409 Conflict response if the username already exists.
+            return res.status(409).json({
+                type: "https://tools.ietf.org/html/rfc7231#section-6.5.8",
+                title: "Conflict",
+                status: 409,
+                traceId: "00-5c4f82df596a35979b7dce0f0a516cfb-02fecb226a1e7d57-00"
+            });
+        }
+        // If it's another error, return a 500 Internal Server Error response.
         res.status(500).send();
     }
 };
+
 
 const getUserDetails = async (req, res) => {
     const token = req.headers.authorization.split(' ')[1];
