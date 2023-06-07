@@ -3,12 +3,12 @@ import UserPic from './UserPic';
 import MessageList from './MessageList';
 import UserContext from '../Users/UserContext';
 
-const LeftChat = ({ onContactAdded, onSelect, messenger }) => {
+const LeftChat = ({ user, onContactAdded, onSelect, messenger }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   return (
     <div className="col-3 border-end border-start border-bottom border-2">
-      <UserPic />
+      <UserPic user={user} />
       <div className="container" style={{ height: '50vh', overflow: 'auto' }}>
       <MessageList onContactAdded={onContactAdded} onSelect={onSelect} messenger={messenger} searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       </div>

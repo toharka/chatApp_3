@@ -8,7 +8,7 @@ import users from "../Users/Users";
 import UserContext from '../Users/UserContext';
 import { Connection } from '../api';
 
-function Conect() {
+function Conect({ updateCurrentUser}) {
     const password = useRef();
     const username = useRef();
     const [showBubble, setShowBubble] = useState('');
@@ -21,7 +21,8 @@ function Conect() {
         console.log('דקה לפני הsetItem',token);
         if (!(token === 0)){
            localStorage.setItem('token',token);
-            navigate('../DisplayChat', { state: { username: username.current.value } });
+           localStorage.setItem('username', username.current.value);
+           updateCurrentUser({ username: username.current.value })
         }
         // if (users && users.length > 0) {
         //     users.forEach((user) => {

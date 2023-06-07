@@ -4,13 +4,13 @@ import MessageContainer from './MessageContainer';
 import BottomBar from './BottomBar';
 import { sendMessageToChat, getMessages } from '../api';
 
-const RightChat = ({ selectedContact }) => {
+const RightChat = ({ user, selectedContact }) => {
   const [messages, setMessages] = useState([]);
 
   useEffect(()=> {
     getMessages(selectedContact.chatId).then((msgs)=> {
       if(msgs && msgs.length) {
-        setMessages(msgs);
+        setMessages(msgs.reverse());
       }
     })
   }, [selectedContact])
@@ -27,7 +27,7 @@ const RightChat = ({ selectedContact }) => {
     <div className="col-9 border-end border-bottom border-2">
       <TopBar selectedContact={selectedContact} />
       <div className="chat-body " style={{ height: '57vh' }}>
-        <MessageContainer messages={messages} />
+        <MessageContainer user={user} messages={messages} />
         <BottomBar onSendMessage={sendMessage} selectedContact={selectedContact} />
       </div>
     </div>

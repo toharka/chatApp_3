@@ -27,31 +27,26 @@ body {
   background-size: cover;
 }
 
-.row{
+/* .row{
   display: flex;
    /* justify-content: center; */
- 
-margin-top: 5%;
-height: 70%;
-padding: 5%;
-padding-left: 7%; 
+/*  
+  margin-top: 5%;
+  height: 70%;
+  padding: 5%;
+  padding-left: 7%; 
 
 
-}
+} */ 
 
 
 
 
 .col-9{
 background-color: #f6eac9;
-padding-left: 0%;
-padding-right: 0%;
-overflow: hidden !important;
 }
 
 .col-3{
-padding: 0%;
-/* height: 80%; */
  background-color: whitesmoke;
  
 
@@ -115,7 +110,7 @@ margin-top: 7px;
   word-wrap: break-word;
 }
 
-.message-body {
+/* .message-body {
   margin: 0 !important;
   padding: 0 !important;
   width: auto;
@@ -123,7 +118,6 @@ margin-top: 7px;
 }
 
 .message-main-receiver {
-  /*padding: 10px 20px;*/
   max-width: 60%;
 }
 
@@ -140,7 +134,7 @@ margin-top: 7px;
   font-weight: 200;
   font-size: 14px;
   padding-bottom: 0 !important;
-}
+} */
 
 
 .logout-container {

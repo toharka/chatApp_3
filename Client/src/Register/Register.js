@@ -46,7 +46,6 @@ function Register() {
           //users.push(user);
 
           //לשלוח בקשה לשרת אם עבר בהצלחה
-          setCurrentUser(user);
           navigate('/');
         }
       

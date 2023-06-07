@@ -1,4 +1,4 @@
-const apistart = "http://localhost:5000/api/"
+const serverUrl = "http://localhost:12345/api"
 
 
 export async function Registration(user){
@@ -9,7 +9,7 @@ export async function Registration(user){
         ProfilePic: user.photo,
     }
     try {
-        const res =  await fetch(apistart + "Users",{
+        const res =  await fetch(serverUrl + "/Users",{
             method: "post",
             headers:{
                 "Content-Type": "application/json",
@@ -41,7 +41,7 @@ export async function Connection(username,password){
         }
     let response = {}
     try{
-        response = await fetch(apistart + "Tokens",{
+        response = await fetch(serverUrl + "/Tokens",{
             method: "post",
             headers:{
                 "Content-Type": "application/json",
@@ -62,10 +62,9 @@ export async function Connection(username,password){
 
 export async function getUserInfo(username){
 
-    console.log("bbbbbb",localStorage.getItem('token'));
     let response = {}
     try{
-        response = await fetch(`http://localhost:5000/api/Users/${username}`,{
+        response = await fetch(`${serverUrl}/Users/${username}`,{
             method: "GET",
             headers:{
                 "Content-Type": "application/json",
@@ -90,7 +89,7 @@ export async function postChat(username){
     console.log("bbbbbb",localStorage.getItem('token'));
     let response = {}
     try{
-        response = await fetch(`http://localhost:5000/api/Chats`,{
+        response = await fetch(`${serverUrl}/Chats`,{
             method: "POST",
             headers:{
                 "Content-Type": "application/json",
@@ -115,7 +114,7 @@ export async function getChat(){
 
     let response = {}
     try{
-        response = await fetch(`http://localhost:5000/api/Chats`,{
+        response = await fetch(`${serverUrl}/Chats`,{
             method: "GET",
             headers:{
                 "Content-Type": "application/json",
@@ -139,8 +138,9 @@ export async function getMessages(id){
 
     console.log("bbbbbb",localStorage.getItem('token'));
     let response = {}
+    
     try{
-        response = await fetch(`http://localhost:5000/api/Chats/${id}/Messages`,{
+        response = await fetch(`${serverUrl}/Chats/${id}/Messages`,{
             method: "GET",
             headers:{
                 "Content-Type": "application/json",
@@ -165,7 +165,7 @@ export async function sendMessageToChat(id, msg){
 
     let response = {}
     try{
-        response = await fetch(`http://localhost:5000/api/Chats/${id}/Messages`,{
+        response = await fetch(`${serverUrl}/Chats/${id}/Messages`,{
             method: "POST",
             headers:{
                 "Content-Type": "application/json",

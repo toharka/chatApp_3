@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
 import BottomBar from './BottomBar';
 
-function MassageOfSender({ message }) {
+function MassageOfSender({ isMe, message }) {
   // Remove the useState for messages, as it's passed as a prop
 
+  console.log("is<<e?", isMe)
   return (
-    <div>
-        <div key={message.id} className="row message-body">
-          <div className="col-sm-12 message-main-sender">
-            <div className="sender">
-              <div className="message-text">{message.content}</div>
-              <span className="message-time pull-right">{message.created}</span>
-            </div>
-          </div>
+    <div key={message.id} className={`row d-flex p-3 m-2`}>
+      <div className={`d-flex flex-fill  ${isMe? 'justify-content-end' : 'justify-content-start'}`}>
+        <div className="p-3 m-2" style={{ backgroundColor: isMe? "#dcf8c6": "white"}}>
+          {!isMe && <div>{message.displayName}</div>}
+          <p>{message.content}</p>
+          <span >{message.created}</span>
         </div>
-      {/* Input field and send button */}
-      {/* ... */}
+      </div>
     </div>
   );
 }
