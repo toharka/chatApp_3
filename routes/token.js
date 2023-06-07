@@ -5,9 +5,9 @@ const jwt = require('jsonwebtoken');
 const userService = require('../services/user');
 
 router.post('/', async (req, res) => {
-    const { username, password } = req.body;
+    const { Username, Password } = req.body;
     // validate user's credentials
-    const user = await userService.validateUser(username, password);
+    const user = await userService.validateUser(Username, Password);
     if (!user) {
         // return status 404 and a custom error message
         return res.status(404).send('Incorrect username and/or password');

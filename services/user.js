@@ -1,7 +1,7 @@
 //services/user
 const User = require('../models/user');
 
-const createUser = async ({ username, password, displayName, profilePic }) => {
+const createUser = async ({ Username: username, Password: password, DisplayName: displayName, ProfilePic: profilePic }) => {
     // Check if a user with the provided username already exists.
     const existingUser = await User.findOne({ username });
 
