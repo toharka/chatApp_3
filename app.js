@@ -7,7 +7,7 @@ const userRoute = require('./routes/user');
 const tokenRoute = require('./routes/token');
 const chatRoute = require('./routes/chat');
 const customEnv = require('custom-env');
-
+const { validateToken } = require('./middlewares/auth'); // Add this line
 
 customEnv.env(process.env.NODE_ENV, './config');
 
@@ -26,9 +26,14 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Add your routes here
+// Routes that don't require token validation
 app.use('/api/users', userRoute);
 app.use('/api/tokens', tokenRoute);
+
+// Apply the validateToken middleware for all the following routes
+app.use(validateToken);
+
+// Routes that require token validation
 app.use('/api/chats', chatRoute);
+
 app.listen(process.env.PORT);
-//server side

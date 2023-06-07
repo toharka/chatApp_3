@@ -1,3 +1,4 @@
+//controller/chatController
 const jwt = require('jsonwebtoken');
 const userService = require('../services/user');
 const chatService = require('../services/chat');
@@ -20,7 +21,7 @@ const createChat = async (req, res) => {
     const otherUser = await userService.getUserByUsername(req.body.username);
 
     if (!otherUser) {
-        return res.status(400).send('Other user not found.');
+        return res.status(400).send('No such user');
     }
 
     const chat = new Chat({
@@ -31,7 +32,7 @@ const createChat = async (req, res) => {
 
     try {
         await chat.save();
-        res.status(201).json({
+        res.status(200).json({
             id: chat.chatId,
             user: {
                 username: otherUser.username,
@@ -148,7 +149,7 @@ const getChat = async (req, res) => {
     const chat = await chatService.getChatById(req.params.id);
 
     if (!chat) {
-        return res.status(404).send('Chat not found.');
+        return res.status(401).send('Chat not found.');
     }
 
     // Check if the current user is a member of the chat
@@ -204,7 +205,7 @@ const getMessages = async (req, res) => {
     const chat = await chatService.getChatById(req.params.id);
 
     if (!chat) {
-        return res.status(404).send('Chat not found.');
+        return res.status(401).send('Chat not found.');
     }
 
     // Check if the current user is a member of the chat
