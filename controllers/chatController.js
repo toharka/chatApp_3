@@ -234,6 +234,24 @@ const getMessages = async (req, res) => {
     res.status(200).json(messages);
 };
 
-module.exports = { createChat, createMessage, getChats, getChat, getMessages };
+const deleteChat = async (req, res) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded = jwt.verify(token, 'your_jwt_secret');
+    const currentUser = await userService.getUserByUsername(decoded.username);
+
+    if (!currentUser) {
+        return res.status(400).send('Current user not found.');
+    }
+
+    try {
+        await chatService.deleteChat(req.params.id, currentUser._id);
+        res.status(200).send('Chat deleted successfully.');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Failed to delete chat.');
+    }
+};
+
+module.exports = { createChat, createMessage, getChats, getChat, getMessages, deleteChat };
 
 

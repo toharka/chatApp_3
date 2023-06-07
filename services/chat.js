@@ -34,5 +34,15 @@ const getChatById = async (id) => {
     return await Chat.findOne({chatId: id}).populate('messages').populate('users');
 };
 
+const deleteChat = async (chatId, userId) => {
+    const chat = await Chat.findOne({chatId}).populate('users');
 
-module.exports = { getMaxChatId, addMessageToChat, getMaxMessageId, getChatsByUsername, getChatById };
+    // Check if the user is a member of the chat
+    if (!chat.users.some(user => user._id.toString() === userId.toString())) {
+        throw new Error('User not authorized to delete this chat.');
+    }
+
+    await Chat.deleteOne({ chatId });
+};
+
+module.exports = { getMaxChatId, addMessageToChat, getMaxMessageId, getChatsByUsername, getChatById, deleteChat };
