@@ -8,6 +8,7 @@ const tokenRoute = require('./routes/token');
 const chatRoute = require('./routes/chat');
 const customEnv = require('custom-env');
 
+
 customEnv.env(process.env.NODE_ENV, './config');
 
 console.log(process.env.CONNECTION_STRING);
@@ -29,5 +30,4 @@ app.use(express.json());
 app.use('/api/users', userRoute);
 app.use('/api/tokens', tokenRoute);
 app.use('/api/chats', chatRoute);
-
 app.listen(process.env.PORT);

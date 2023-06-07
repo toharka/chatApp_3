@@ -6,4 +6,7 @@ var router = express.Router()
 
 router.post('/', userController.createUser);
 
+
+router.get('/:username', userController.getUserDetails);
+
 module.exports = router;

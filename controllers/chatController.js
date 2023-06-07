@@ -191,5 +191,49 @@ const getChat = async (req, res) => {
 };
 
 
-module.exports = { createChat, createMessage, getChats, getChat };
+// controller/chatController.js
+const getMessages = async (req, res) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded = jwt.verify(token, 'your_jwt_secret');
+    const currentUser = await userService.getUserByUsername(decoded.username);
+
+    if (!currentUser) {
+        return res.status(400).send('Current user not found.');
+    }
+
+    const chat = await chatService.getChatById(req.params.id);
+
+    if (!chat) {
+        return res.status(404).send('Chat not found.');
+    }
+
+    // Check if the current user is a member of the chat
+    const isMember = chat.users.some(user => user._id.toString() === currentUser._id.toString());
+
+    if (!isMember) {
+        return res.status(401).send({
+            type: 'https://tools.ietf.org/html/rfc7235#section-3.1',
+            title: 'Unauthorized',
+            status: 401,
+            traceId: '00-381f606a917f31e9620513e22322d70f-5bbc2079bf999ea8-00'
+        });
+    }
+
+    const messages = await Promise.all(chat.messages.map(async message => {
+        const sender = await userService.getUserById(message.sender);
+        return {
+            id: message.messageId,
+            created: message.created,
+            sender: {
+                username: sender.username,
+            },
+            content: message.content
+        };
+    }));
+
+    res.status(200).json(messages);
+};
+
+module.exports = { createChat, createMessage, getChats, getChat, getMessages };
+
 
