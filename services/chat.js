@@ -1,6 +1,7 @@
-//services/chat
+const User = require('../models/user'); 
 const Chat = require('../models/chat');
 const Message = require('../models/message');
+const mongoose = require('mongoose');
 
 const getMaxChatId = async () => {
     const chat = await Chat.findOne().sort('-chatId');
@@ -12,16 +13,26 @@ const getMaxMessageId = async () => {
     return message ? message.messageId : 0;
 };
 
-
 const addMessageToChat = async (chatId, message) => {
     const chat = await Chat.findOne({chatId});
     if (!chat) {
         throw new Error('Chat not found');
     }
-    chat.messages.push(message._id); // Store the message id instead of the entire message
+    chat.messages.push(message._id);
     await chat.save();
     return await Chat.findById(chat._id).populate('messages').populate('users');
 };
 
+const getChatsByUsername = async (username) => {
+    const user = await User.findOne({ username });
+    if (!user) throw new Error('User not found');
+    return await Chat.find({ users: user._id }).populate('messages').populate('users');
+};
 
-module.exports = { getMaxChatId, addMessageToChat, getMaxMessageId };
+
+const getChatById = async (id) => {
+    return await Chat.findOne({chatId: id}).populate('messages').populate('users');
+};
+
+
+module.exports = { getMaxChatId, addMessageToChat, getMaxMessageId, getChatsByUsername, getChatById };

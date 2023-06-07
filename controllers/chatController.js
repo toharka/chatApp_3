@@ -89,4 +89,107 @@ const createMessage = async (req, res) => {
 
 
 
-module.exports = { createChat, createMessage };
+const getChats = async (req, res) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded = jwt.verify(token, 'your_jwt_secret');
+    const currentUser = await userService.getUserByUsername(decoded.username);
+
+    if (!currentUser) {
+        return res.status(400).send('Current user not found.');
+    }
+
+    const chats = await chatService.getChatsByUsername(currentUser.username);
+
+    const result = await Promise.all(chats.map(async (chat) => {
+        const otherUser = chat.users.find(user => user.username.toString() !== currentUser.username.toString());
+
+        if (!otherUser) {
+            console.error('No other user found in chat:', chat);
+            return null;
+        }
+
+        const lastMessage = chat.messages.sort((a, b) => b.created - a.created)[0];
+        if (!lastMessage) {
+            return null;
+        }
+
+        return {
+            id: chat.chatId,
+            user: {
+                username: otherUser.username,
+                displayName: otherUser.displayName,
+                profilePic: otherUser.profilePic
+            },
+            lastMessage: {
+                id: lastMessage.messageId,
+                created: lastMessage.created,
+                content: lastMessage.content
+            }
+        };
+    }));
+
+    const filteredResult = result.filter(chat => chat !== null); // Filter out chats with no lastMessage or other user
+
+    res.status(200).json(filteredResult);
+};
+
+
+
+
+const getChat = async (req, res) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded = jwt.verify(token, 'your_jwt_secret');
+    const currentUser = await userService.getUserByUsername(decoded.username);
+
+    if (!currentUser) {
+        return res.status(400).send('Current user not found.');
+    }
+
+    const chat = await chatService.getChatById(req.params.id);
+
+    if (!chat) {
+        return res.status(404).send('Chat not found.');
+    }
+
+    // Check if the current user is a member of the chat
+    const isMember = chat.users.some(user => user._id.toString() === currentUser._id.toString());
+
+    if (!isMember) {
+        return res.status(401).send({
+            type: 'https://tools.ietf.org/html/rfc7235#section-3.1',
+            title: 'Unauthorized',
+            status: 401,
+            traceId: '00-381f606a917f31e9620513e22322d70f-5bbc2079bf999ea8-00'
+        });
+    }
+
+    const users = chat.users.map(user => ({
+        username: user.username,
+        displayName: user.displayName,
+        profilePic: user.profilePic
+    }));
+
+    const messages = await Promise.all(chat.messages.map(async message => {
+        const sender = await userService.getUserById(message.sender);
+        return {
+            id: message.messageId,
+            created: message.created,
+            sender: {
+                username: sender.username,
+                displayName: sender.displayName,
+                profilePic: sender.profilePic
+            },
+            content: message.content
+        };
+    }));
+
+    res.status(200).json({
+        id: chat.chatId,
+        users,
+        messages
+    });
+};
+
+
+module.exports = { createChat, createMessage, getChats, getChat };
+
