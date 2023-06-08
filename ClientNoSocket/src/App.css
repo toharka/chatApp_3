@@ -1,0 +1,14 @@
+
+body, html {
+    padding: 0 !important;
+    margin: 0 !important;
+    background: url("../public/im2.jpg") no-repeat fixed center;
+    min-height: 100vh;
+    min-width: 100vw;
+    background-size: cover;
+  }
+
+
+.chat-background {
+  background: url("../public/im2.jpg") no-repeat fixed center;
+}
