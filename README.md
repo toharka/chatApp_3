@@ -1,4 +1,4 @@
-# Advanced2-Ex2
+# Chat App-Ex2
 
 <p>
     Participants: Shai Aviv, Tohar Kaner<br>
@@ -13,8 +13,8 @@
     <h3>Running the application is done via the following:</h3>
     <ol>
         <li>make sure that run mongodb on the background.</li>
-        <li>type in terminal <code>git clone https://github.com/eli-sinai/advanced2-ex3.git</code>.</li>
-        <li>type in terminal <code>cd client-side</code> and run <code>npm i</code>.</li>
+        <li>type in terminal <code>git clone https://github.com/toharka/chatApp_3.git.</li>
+        <li>type in terminal <code>cd ClientNoSocket</code> and run <code>npm i </code>.</li>
         <li>type in terminal <code>cd ../server-side</code> and run <code>npm i</code>.</li>
         <li>after all packages has being downloaded, run <code>npm start</code> to run the server on port <code>12345</code>.</li> 
         <li>type <code>cd ../client-side</code> and run <code>npm start</code> to run the client <br>(don't run <code>npm start</code> on the client twice).</li>
