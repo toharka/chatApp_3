@@ -14,9 +14,9 @@
     <ol>
         <li>make sure that run mongodb on the background.</li>
         <li>type in terminal <code>git clone https://github.com/toharka/chatApp_3.git.</li>
-        <li>type in terminal <code>cd ClientNoSocket</code> and run <code>npm i </code>.</li>
+        <li>type in terminal <code>cd ClientNoSocket</code> and run <code>npm i and after that npm i socket.io-client </code>.</li>
             <li>open new terminal.</li>
-        <li>type in terminal <code>cd ServerNoSocket</code> and run <code>npm i express  cons express custom-env jsonwebtoken cors socket.io mongoose body-parser</code>.</li>
+        <li>type in terminal <code>cd ServerNoSocket</code> and run <code>npm i express cons express custom-env jsonwebtoken cors socket.io mongoose body-parser</code>.</li>
         <li>after all packages has being downloaded, run <code>npm start</code> to run the server on port <code>12345</code>.</li> 
         <li>switch to client terminal  and run <code>npm start</code> to run the client <br>(don't run <code>npm start</code> on the client twice).</li>
 
